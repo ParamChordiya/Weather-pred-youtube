@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Prediction App</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</head>
+
+<body data-bs-theme="dark">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index')}}">Weather App</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <button id="dark-mode-btn" class="btn btn-primary " style="border-radius: 60px; ">
+                    <img id="dark-mode-img" src="static/brightness.png" height='30' alt="Light Mode">
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <center>
+            <form method="post" action="{{ url_for('predict')}}" style="width: 40%;">
+                <div class="col-auto">
+                    <label for="precipitation">Precipitation</label>
+                    <input class="form-control" type="text" placeholder="precipitation" id="precipitation"
+                        name="precipitation">
+                    <br>
+                </div>
+                <div class="col-auto">
+                    <label for="temp_max">temp_max</label>
+                    <input class="form-control" type="text" placeholder="temp_max" id="temp_max" name="temp_max">
+                </div>
+                <div class="col-auto">
+                    <label for="temp_min">temp_min</label>
+                    <input class="form-control" type="text" placeholder="temp_min" id="temp_min" name="temp_min">
+                </div>
+                <div class="col-auto">
+                    <label for="wind">wind</label>
+                    <input class="form-control" type="text" placeholder="wind" id="wind" name="wind">
+                </div>
+                <br>
+                <!-- <input type="submit" value="Submit" class="btn btn-primary mb-3"> -->
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+                </div>
+            </form>
+        </center>
+    </div>
+    <center>
+        <div>
+            {% if result %}
+            <h1>The Weather Will be like:</h1>
+            <h2>{{ result}}</h2>
+            {% endif %}
+        </div>
+    </center>
+
+
+
+
+    <script>
+        // Dark mode switch button
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const darkModeImg = document.getElementById('dark-mode-img');
+        darkModeBtn.addEventListener('click', () => {
+            const body = document.querySelector('body');
+            if (body.getAttribute('data-bs-theme') === 'light') {
+                body.setAttribute('data-bs-theme', 'dark');
+                darkModeImg.setAttribute('src', 'static/night-mode.png');
+            } else {
+                body.setAttribute('data-bs-theme', 'light');
+                darkModeImg.setAttribute('src', 'static/brightness.png');
+            }
+        });
+    </script>
+</body>
+
+</html>
